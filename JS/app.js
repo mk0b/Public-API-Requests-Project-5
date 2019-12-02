@@ -32,10 +32,7 @@ Treehouse Project 5 - Public API Requests - by TAP Student Megan Katherine O'Bri
 const RandomUsersCall = 'https://randomuser.me/api/?results=12&inc=name,location,email,dob,cell,picture&nat=us';
 
 //TODO: Use interpolation to add info from api call.
-const searchHTML = `<form action="#" method="get">
-<input type="search" id="search-input" class="search-input" placeholder="Search...">
-<input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
-</form>`;
+
 
 
 
@@ -92,7 +89,8 @@ const grabNappend = (grabElement, appendElement, html) => {
         4. City/Location
 */
 
-//Loops through the results, sets up the needed html, and uses my grabNappend helper function to show on the page.
+//Loops through the results, sets up the needed html, and uses my grabNappend 
+//helper function to show on the divs on the page.
 const createGallery = (data) => {
     console.log(data);
     data.forEach(person => {
@@ -110,13 +108,17 @@ const createGallery = (data) => {
     });
 };
 
+
+//TODO: Exceeds - Add a way to filter the directory by name. 
+//TODO: Exceeds - Your search feature should filters results that are already on the page. So don't request new info from the API for your search.
+
 //Exceeds - add the search box.
-//Exceeds - Add a way to filter the directory by name. 
-//Exceeds - Your search feature should filters results that are already on the page. So don't request new info from the API for your search.
-
 const createSearch = () => {
-
-
+    const searchHTML = `<form action="#" method="get">
+    <input type="search" id="search-input" class="search-input" placeholder="Search...">
+    <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+    </form>`;
+    grabNappend('.search-container', 'form', searchHTML);
 };
 
 
@@ -141,7 +143,7 @@ const createModal = () => {
 
 //make master function that creates the whole page by calling other functions?
 
-const createPage = () => {
+const createPage = (data) => {
 
 };
 
@@ -166,7 +168,7 @@ const createPage = () => {
 */
 
 //Fetching the data from the RandomUser API
+createSearch();
 requestData(RandomUsersCall)
     .then(data => createGallery(data.results));
-
     //place the functions here to test but then at the end only call the master createPage function.
