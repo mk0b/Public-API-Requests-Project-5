@@ -9,11 +9,26 @@ Treehouse Project 5 - Public API Requests - by TAP Student Megan Katherine O'Bri
 //TODO: Remember that the html for what I need is in comments in the index.html file.
 
 //TODO: Test, test test!
-//TODO: Refactor & clean up comments.
+//TODO: Refactor & clean up comments & tests.
 //TODO: Fill out read.me
 //TODO: Go for exceeds.
 
-console.log('Testing the js file.');
+/*
+    Global Variables
+*/
+
+const RandomUsersCall = 'https://randomuser.me/api/?results=12&inc=name,location,email,dob,cell,picture&nat=us'
+
+/*
+    Helper Functions
+*/
+
+const requestData = (url) => {
+    fetch(url)
+        .then(response => response.json())
+        .then(response => console.log(response))
+        .catch(error => console.log('There was a problem.', error));
+};
 
 //get 12 random users in one request from the randomUser API
 /*
@@ -28,7 +43,7 @@ console.log('Testing the js file.');
         8. Birthday
 */
 
-
+requestData(RandomUsersCall);
 
 
 //Refer to mockups and comments to dynamically show the info I grabbed from the API.
