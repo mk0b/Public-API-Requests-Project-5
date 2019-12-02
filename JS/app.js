@@ -32,7 +32,20 @@ console.log('Testing the js file.');
 
 
 //Refer to mockups and comments to dynamically show the info I grabbed from the API.
+/*
+    Info that needs to show on the inital page for each employee:
+        1. Image
+        2. First and Last Name
+        3. Email
+        4. City/Location
+*/
+
+
+
+
 //Exceeds - add the search box.
+//Exceeds - Add a way to filter the directory by name. 
+//Exceeds - Your search feature should filters results that are already on the page. So don't request new info from the API for your search.
 
 
 
