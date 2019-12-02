@@ -119,6 +119,9 @@ const createSearch = () => {
     <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
     </form>`;
     grabNappend('.search-container', 'form', searchHTML);
+    const searchForm = document.querySelector('.search-container form');
+    searchForm.action = "#";
+    searchForm.method = "get";
 };
 
 
