@@ -31,15 +31,6 @@ Treehouse Project 5 - Public API Requests - by TAP Student Megan Katherine O'Bri
 */
 const RandomUsersCall = 'https://randomuser.me/api/?results=12&inc=name,location,email,dob,cell,picture&nat=us';
 
-//TODO: Use interpolation to add info from api call.
-
-const modalButtonsHTML = `<div class="modal-btn-container">
-<button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
-<button type="button" id="modal-next" class="modal-next btn">Next</button>
-</div>
-</div>`;
-
-
 
 /*
     Helper Functions
@@ -121,7 +112,9 @@ const createSearch = () => {
 //Make sure there is a way to close the window.
 //Exceeds - add a way to move to the next employee in the modal. There is markup and comments.
 
-//TODO: Figure out how to create this part, use the resources and youtube.
+//TODO: Should this only be apart of an event listener? The modal gets created
+//when someone is clicked. Then I would have to figure out how to match the right names
+//to the right modal.
 
 const createModal = (data) => {
     data.forEach(person => {
@@ -138,8 +131,16 @@ const createModal = (data) => {
                 <p class="modal-text">${person.location.street.number} ${person.location.street.name}, ${person.location.city}, ${person.location.state} ${person.location.postcode}</p>
                 <p class="modal-text">Birthday: ${person.dob.date}</p>
                 </div>
+            </div>
+            <div class="modal-btn-container">
+            <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+            <button type="button" id="modal-next" class="modal-next btn">Next</button>
+                </div>
             </div>`;
         grabNappend('body', 'div', modalHTML);
+        
+        //TODO: Clean up how the birthday appears.
+        
     });
 
 };
@@ -173,5 +174,5 @@ const createPage = (data) => {
 //Fetching the data from the RandomUser API
 createSearch();
 requestData(RandomUsersCall)
-    .then(data => createGallery(data.results));
+    .then(data => createModal(data.results));
     //place the functions here to test but then at the end only call the master createPage function.
