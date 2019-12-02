@@ -33,24 +33,6 @@ const RandomUsersCall = 'https://randomuser.me/api/?results=12&inc=name,location
 
 //TODO: Use interpolation to add info from api call.
 
-
-
-
-const modalHTML = `<div class="modal-container">
-<div class="modal">
-    <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-    <div class="modal-info-container">
-        <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
-        <h3 id="name" class="modal-name cap">name</h3>
-        <p class="modal-text">email</p>
-        <p class="modal-text cap">city</p>
-        <hr>
-        <p class="modal-text">(555) 555-5555</p>
-        <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
-        <p class="modal-text">Birthday: 10/21/2015</p>
-    </div>
-</div>`;
-
 const modalButtonsHTML = `<div class="modal-btn-container">
 <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
 <button type="button" id="modal-next" class="modal-next btn">Next</button>
@@ -139,8 +121,26 @@ const createSearch = () => {
 //Make sure there is a way to close the window.
 //Exceeds - add a way to move to the next employee in the modal. There is markup and comments.
 
-const createModal = () => {
+//TODO: Figure out how to create this part, use the resources and youtube.
 
+const createModal = (data) => {
+    data.forEach(person => {
+        const modalHTML = `<div class="modal-container">
+            <div class="modal">
+                <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+            <div class="modal-info-container">
+                <img class="modal-img" src="${person.picture.large}" alt="profile picture">
+                <h3 id="name" class="modal-name cap">${person.name.first} ${person.name.last}</h3>
+                <p class="modal-text">${person.email}</p>
+                <p class="modal-text cap">${person.location.city}</p>
+                <hr>
+                <p class="modal-text">${person.cell}</p>
+                <p class="modal-text">${person.location.street.number} ${person.location.street.name}, ${person.location.city}, ${person.location.state} ${person.location.postcode}</p>
+                <p class="modal-text">Birthday: ${person.dob.date}</p>
+                </div>
+            </div>`;
+        grabNappend('body', 'div', modalHTML);
+    });
 
 };
 
