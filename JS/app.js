@@ -92,13 +92,13 @@ const grabNappend = (grabElement, appendElement, html) => {
         4. City/Location
 */
 
-//go through array and for each user create the html. Will be called in a then so will accept data as a param
+//Loops through the results, sets up the needed html, and uses my grabNappend helper function to show on the page.
 const createGallery = (data) => {
     console.log(data);
     data.forEach(person => {
         const galleryHTML = `<div class="card">
         <div class="card-img-container">
-            <img class="card-img" src="${person.picture.medium}" alt="profile picture">
+            <img class="card-img" src="${person.picture.large}" alt="profile picture">
         </div>
         <div class="card-info-container">
             <h3 id="name" class="card-name cap">${person.name.first} ${person.name.last}</h3>
