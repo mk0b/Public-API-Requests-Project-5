@@ -54,7 +54,7 @@ const grabNappend = (grabElement, appendElement, html) => {
     return newElement;
 };
 
-//TODO: create helper function for grabbing a node list and converting it to an array.
+//function for grabbing a node list and converting it to an array.
 const grabNodeConvertToArray = (node) => {
     const nodeList = document.querySelectorAll(node);
     const array = Array.from(nodeList);
@@ -77,27 +77,25 @@ const createSearch = () => {
     searchForm.method = "get";
 };
 
-//Master create page function. Creates search, creates gallery, creates modals. Could break up into individual parts after. Smaller functions then call them here and pass data.
-const createPage = (data) => {
-    //creating search bar
-    createSearch();
-    //console.log(data);
-    
-    //creating gallery
+//Create gallery
+const createGallery = (data) => {
     data.forEach(person => {
         const galleryHTML = `
-        <div class="card-img-container">
-            <img class="card-img" src="${person.picture.large}" alt="profile picture">
-        </div>
-        <div class="card-info-container">
-            <h3 id="name" class="card-name cap">${person.name.first} ${person.name.last}</h3>
-            <p class="card-text">${person.email}</p>
-            <p class="card-text cap">${person.location.city}, ${person.location.state}</p>
-            </div>
-        </div>`;
+            <div class="card-img-container">
+                <img class="card-img" src="${person.picture.large}" alt="profile picture">
+                </div>
+                <div class="card-info-container">
+                <h3 id="name" class="card-name cap">${person.name.first} ${person.name.last}</h3>
+                <p class="card-text">${person.email}</p>
+                <p class="card-text cap">${person.location.city}, ${person.location.state}</p>
+                </div>
+            </div>`;
         grabNappend('#gallery', 'div', galleryHTML).className = 'card';
     });
+};
 
+//Create modals
+const createModals = (data) => {
     //creating modals
     data.forEach(person => {
         const modalHTML = `
@@ -122,58 +120,48 @@ const createPage = (data) => {
             grabNappend('body', 'div', modalHTML).className = 'modal-container';
             //TODO: Clean up how the birthday appears.
     });
+};
 
-    //hiding modals
-    const modals = document.querySelectorAll('div.modal-container');
-    const modalsArray = Array.from(modals);
-    console.log(modalsArray);
-    modalsArray.forEach(modal => modal.style.display = 'none');
-    
-    //TODO: put the event listners all in one function because I need access to the three arrays among most of the event listerns.
-    //creating a cards array
-    const cards = document.querySelectorAll('div.card');
-    console.log(cards);
-    const cardsArray = Array.from(cards);
-    console.log(cardsArray);
+//Hiding Modals
+const hidingModals = () => {
+    grabNodeConvertToArray('div.modal-container').forEach(modal => modal.style.display = 'none');;
+};
 
-    //Dynamically adding event listeners to each card. When a card is clicked show matching event listener
+//Event Listeners to open, close, and click next on modals.
+const eventListeners = () => {
+    //creating arrays
+    const cardsArray = grabNodeConvertToArray('div.card');
+    const modalsArray = grabNodeConvertToArray('div.modal-container');
+    const modalCloseBtnArray = grabNodeConvertToArray('#modal-close-btn');
+
+    //dynamically adding event listeners to each card. When a card is clicked show matching event listener.
     for (let i = 0; i < cardsArray.length; i++) {
         cardsArray[i].addEventListener('click', () => {
             modalsArray[i].style.display = 'block';
         });
     }
 
-    //close button listener
-    const modalCloseBtn = document.querySelectorAll('#modal-close-btn');
-    const modalCloseBtnArray = Array.from(modalCloseBtn);
-
+    //dynamically adding event listeners to each modal close button to close modal.
     for (let k = 0; k < modalCloseBtnArray.length; k++) {
         modalCloseBtnArray[k].addEventListener('click', () => {
             modalsArray[k].style.display = 'none';
         });
     }
+};
 
+//master calling function. Passing through the response and calling each part of my app so they can be called all at once.
+const createPage = (data) => {
+    createSearch();
+    createGallery(data);
+    createModals(data);
+    hidingModals();
+    eventListeners();
 };
 
 
 //TODO: Exceeds - Add a way to filter the directory by name. 
 //TODO: Exceeds - Your search feature should filters results that are already on the page. So don't request new info from the API for your search.
-
-
-
-//Create a modal window
-/*
-    Modal window needs to show the following info:
-        1. Image
-        2. Name
-        3. Email
-        4. City or location
-        5. Cell number
-        6. Detailed address including street name and number, state or country, and post code.
-        7. Birthday
-*/
-//Make sure there is a way to close the window.
-//Exceeds - add a way to move to the next employee in the modal. There is markup and comments.
+//TODO: Exceeds - add a way to move to the next employee in the modal. There is markup and comments.
 
 
 /*
@@ -187,13 +175,6 @@ const createPage = (data) => {
         3. Do not alter the layout or position of the important elements on the page.
 */
 
-/*
-    Event Listeners
-*/
-
-
-
-
 
 /*
     Call functions.
@@ -202,4 +183,3 @@ const createPage = (data) => {
 //Fetching the data from the RandomUser API
 requestData(RandomUsersCall)
     .then(data => createPage(data.results));
-    //place the functions here to test but then at the end only call the master createPage function.
