@@ -132,7 +132,7 @@ const eventListeners = () => {
     const cardsArray = grabNodeConvertToArray('div.card');
     const modalsArray = grabNodeConvertToArray('div.modal-container');
     const modalCloseBtnArray = grabNodeConvertToArray('#modal-close-btn');
-
+    const nameArray = grabNodeConvertToArray('#name');
     const searchInput = document.querySelector('#search-input');
     
 
@@ -157,15 +157,19 @@ const eventListeners = () => {
 
         cardsArray.forEach(card => {
             //TODO: change nameText to nth child note to check names on card.
-            const $nameText = $("div.card-info-container:nth-child(1)").textContent.toLowerCase();
-            console.log($nameText);
-            if (nameText.indexOf(searchTerm) != -1) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
+            nameArray.forEach(name => {
+                const nameText = name.textContent.toLowerCase();
+                console.log(nameText);
+                if (nameText.indexOf(searchTerm) != -1) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         });
     });
+
+    //TODO: Add event listener for next and back buttons user foreach and use the special next and back for each methods?
 };
 
 
