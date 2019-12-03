@@ -55,10 +55,27 @@ const grabNappend = (grabElement, appendElement, html) => {
 };
 
 //TODO: create helper function for grabbing a node list and converting it to an array.
+const grabNodeConvertToArray = (node) => {
+    const nodeList = document.querySelectorAll(node);
+    const array = Array.from(nodeList);
+    return array;
+};
 
 /*
     Regular Functions
 */
+
+//Create Searchbox
+const createSearch = () => {
+    const searchHTML = `<form action="#" method="get">
+    <input type="search" id="search-input" class="search-input" placeholder="Search...">
+    <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+    </form>`;
+    grabNappend('.search-container', 'form', searchHTML);
+    const searchForm = document.querySelector('.search-container form');
+    searchForm.action = "#";
+    searchForm.method = "get";
+};
 
 //Master create page function. Creates search, creates gallery, creates modals. Could break up into individual parts after. Smaller functions then call them here and pass data.
 const createPage = (data) => {
@@ -142,17 +159,6 @@ const createPage = (data) => {
 //TODO: Exceeds - Add a way to filter the directory by name. 
 //TODO: Exceeds - Your search feature should filters results that are already on the page. So don't request new info from the API for your search.
 
-//Exceeds - add the search box.
-const createSearch = () => {
-    const searchHTML = `<form action="#" method="get">
-    <input type="search" id="search-input" class="search-input" placeholder="Search...">
-    <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
-    </form>`;
-    grabNappend('.search-container', 'form', searchHTML);
-    const searchForm = document.querySelector('.search-container form');
-    searchForm.action = "#";
-    searchForm.method = "get";
-};
 
 
 //Create a modal window
