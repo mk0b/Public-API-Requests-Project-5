@@ -109,7 +109,7 @@ const createModals = (data) => {
                 <hr>
                 <p class="modal-text">${person.cell}</p>
                 <p class="modal-text">${person.location.street.number} ${person.location.street.name}, ${person.location.city}, ${person.location.state} ${person.location.postcode}</p>
-                <p class="modal-text">Birthday: ${person.dob.date}</p>
+                <p class="modal-text">Birthday: ${person.dob.date.slice(5, 10)}</p>
                 </div>
             </div>
             <div class="modal-btn-container">
@@ -118,7 +118,6 @@ const createModals = (data) => {
                 </div>
             </div>`;
             grabNappend('body', 'div', modalHTML).className = 'modal-container';
-            //TODO: Clean up how the birthday appears.
     });
 };
 
