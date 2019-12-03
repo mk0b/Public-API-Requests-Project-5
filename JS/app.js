@@ -54,6 +54,8 @@ const grabNappend = (grabElement, appendElement, html) => {
     return newElement;
 };
 
+//TODO: create helper function for grabbing a node list and converting it to an array.
+
 /*
     Regular Functions
 */
@@ -110,7 +112,7 @@ const createPage = (data) => {
     console.log(modalsArray);
     modalsArray.forEach(modal => modal.style.display = 'none');
     
-
+    //TODO: put the event listners all in one function because I need access to the three arrays among most of the event listerns.
     //creating a cards array
     const cards = document.querySelectorAll('div.card');
     console.log(cards);
@@ -119,10 +121,21 @@ const createPage = (data) => {
 
     //Dynamically adding event listeners to each card. When a card is clicked show matching event listener
     for (let i = 0; i < cardsArray.length; i++) {
-        cardsArray[i].addEventListener('click', (event) => {
+        cardsArray[i].addEventListener('click', () => {
             modalsArray[i].style.display = 'block';
         });
     }
+
+    //close button listener
+    const modalCloseBtn = document.querySelectorAll('#modal-close-btn');
+    const modalCloseBtnArray = Array.from(modalCloseBtn);
+
+    for (let k = 0; k < modalCloseBtnArray.length; k++) {
+        modalCloseBtnArray[k].addEventListener('click', () => {
+            modalsArray[k].style.display = 'none';
+        });
+    }
+
 };
 
 
