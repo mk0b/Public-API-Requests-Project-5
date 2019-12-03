@@ -32,6 +32,7 @@ Treehouse Project 5 - Public API Requests - by TAP Student Megan Katherine O'Bri
 const RandomUsersCall = 'https://randomuser.me/api/?results=12&inc=name,location,email,dob,cell,picture&nat=us';
 
 
+
 /*
     Helper Functions
 */
@@ -50,6 +51,7 @@ const grabNappend = (grabElement, appendElement, html) => {
     const newElement = document.createElement(appendElement);
     selectedElement.append(newElement);
     newElement.innerHTML = html;
+    return newElement;
 };
 
 
@@ -62,12 +64,15 @@ const grabNappend = (grabElement, appendElement, html) => {
         4. City/Location
 */
 
-//Loops through the results, sets up the needed html, and uses my grabNappend 
-//helper function to show on the divs on the page.
-const createGallery = (data) => {
-    console.log(data);
+//Master create page function. Creates search, creates gallery, creates modals. Could break up into individual parts after. Smaller functions then call them here and pass data.
+const createPage = (data) => {
+    //creating search bar
+    createSearch();
+    //console.log(data);
+    
+    //creating gallery
     data.forEach(person => {
-        const galleryHTML = `<div class="card">
+        const galleryHTML = `
         <div class="card-img-container">
             <img class="card-img" src="${person.picture.large}" alt="profile picture">
         </div>
@@ -77,8 +82,56 @@ const createGallery = (data) => {
             <p class="card-text cap">${person.location.city}, ${person.location.state}</p>
             </div>
         </div>`;
-        grabNappend('#gallery', 'div', galleryHTML);
+        grabNappend('#gallery', 'div', galleryHTML).className = 'card';
     });
+
+    //creating modals
+    data.forEach(person => {
+        const modalHTML = `
+            <div class="modal">
+                <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+            <div class="modal-info-container">
+                <img class="modal-img" src="${person.picture.large}" alt="profile picture">
+                <h3 id="name" class="modal-name cap">${person.name.first} ${person.name.last}</h3>
+                <p class="modal-text">${person.email}</p>
+                <p class="modal-text cap">${person.location.city}</p>
+                <hr>
+                <p class="modal-text">${person.cell}</p>
+                <p class="modal-text">${person.location.street.number} ${person.location.street.name}, ${person.location.city}, ${person.location.state} ${person.location.postcode}</p>
+                <p class="modal-text">Birthday: ${person.dob.date}</p>
+                </div>
+            </div>
+            <div class="modal-btn-container">
+            <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+            <button type="button" id="modal-next" class="modal-next btn">Next</button>
+                </div>
+            </div>`;
+            grabNappend('body', 'div', modalHTML).className = 'modal-container';
+            //TODO: Clean up how the birthday appears.
+    });
+
+    //hiding modals
+    const modals = document.querySelectorAll('div.modal-container');
+    const modalsArray = Array.from(modals);
+    console.log(modalsArray);
+    modalsArray.forEach(modal => modal.style.display = 'none');
+    
+
+    //creating a cards array
+    const cards = document.querySelectorAll('div.card');
+    console.log(cards);
+    const cardsArray = Array.from(cards);
+    console.log(cardsArray);
+
+
+    //listener for cardsarray
+    cardsArray.forEach( card => {
+        card.addEventListener('click', (event) => {
+            console.log('Clicked: ', event.target);
+        });
+    });
+
+
 };
 
 
@@ -112,44 +165,6 @@ const createSearch = () => {
 //Make sure there is a way to close the window.
 //Exceeds - add a way to move to the next employee in the modal. There is markup and comments.
 
-//TODO: Should this only be apart of an event listener? The modal gets created
-//when someone is clicked. Then I would have to figure out how to match the right names
-//to the right modal.
-
-const createModal = (data) => {
-    data.forEach(person => {
-        const modalHTML = `<div class="modal-container">
-            <div class="modal">
-                <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-            <div class="modal-info-container">
-                <img class="modal-img" src="${person.picture.large}" alt="profile picture">
-                <h3 id="name" class="modal-name cap">${person.name.first} ${person.name.last}</h3>
-                <p class="modal-text">${person.email}</p>
-                <p class="modal-text cap">${person.location.city}</p>
-                <hr>
-                <p class="modal-text">${person.cell}</p>
-                <p class="modal-text">${person.location.street.number} ${person.location.street.name}, ${person.location.city}, ${person.location.state} ${person.location.postcode}</p>
-                <p class="modal-text">Birthday: ${person.dob.date}</p>
-                </div>
-            </div>
-            <div class="modal-btn-container">
-            <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
-            <button type="button" id="modal-next" class="modal-next btn">Next</button>
-                </div>
-            </div>`;
-        grabNappend('body', 'div', modalHTML);
-        
-        //TODO: Clean up how the birthday appears.
-        
-    });
-
-};
-
-//make master function that creates the whole page by calling other functions?
-
-const createPage = (data) => {
-
-};
 
 /*
     Exceeds for Structure style and css
@@ -167,12 +182,14 @@ const createPage = (data) => {
 */
 
 
+
+
+
 /*
     Call functions.
 */
 
 //Fetching the data from the RandomUser API
-createSearch();
 requestData(RandomUsersCall)
-    .then(data => createModal(data.results));
+    .then(data => createPage(data.results));
     //place the functions here to test but then at the end only call the master createPage function.
