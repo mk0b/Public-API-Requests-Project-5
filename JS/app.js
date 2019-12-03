@@ -133,6 +133,9 @@ const eventListeners = () => {
     const modalsArray = grabNodeConvertToArray('div.modal-container');
     const modalCloseBtnArray = grabNodeConvertToArray('#modal-close-btn');
 
+    const searchInput = document.querySelector('#search-input');
+    
+
     //dynamically adding event listeners to each card. When a card is clicked show matching event listener.
     for (let i = 0; i < cardsArray.length; i++) {
         cardsArray[i].addEventListener('click', () => {
@@ -146,7 +149,26 @@ const eventListeners = () => {
             modalsArray[k].style.display = 'none';
         });
     }
+
+    //keyup event for search bar
+    searchInput.addEventListener('keyup', (event) => {
+        const searchTerm = event.target.value.toLowerCase();
+        console.log(searchTerm);
+
+        cardsArray.forEach(card => {
+            //TODO: change nameText to nth child note to check names on card.
+            const nameText = card.textContent.toLowerCase();
+            console.log(nameText);
+            if (nameText.indexOf(searchTerm) != -1) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
 };
+
+
 
 //master calling function. Passing through the response and calling each part of my app so they can be called all at once.
 const createPage = (data) => {
