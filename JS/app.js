@@ -54,14 +54,8 @@ const grabNappend = (grabElement, appendElement, html) => {
     return newElement;
 };
 
-
-//Refer to mockups and comments to dynamically show the info I grabbed from the API.
 /*
-    Info that needs to show on the inital page for each employee:
-        1. Image
-        2. First and Last Name
-        3. Email
-        4. City/Location
+    Regular Functions
 */
 
 //Master create page function. Creates search, creates gallery, creates modals. Could break up into individual parts after. Smaller functions then call them here and pass data.
@@ -123,15 +117,12 @@ const createPage = (data) => {
     const cardsArray = Array.from(cards);
     console.log(cardsArray);
 
-
-    //listener for cardsarray
-    cardsArray.forEach( card => {
-        card.addEventListener('click', (event) => {
-            console.log('Clicked: ', event.target);
+    //Dynamically adding event listeners to each card. When a card is clicked show matching event listener
+    for (let i = 0; i < cardsArray.length; i++) {
+        cardsArray[i].addEventListener('click', (event) => {
+            modalsArray[i].style.display = 'block';
         });
-    });
-
-
+    }
 };
 
 
