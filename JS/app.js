@@ -157,8 +157,8 @@ const eventListeners = () => {
 
         cardsArray.forEach(card => {
             //TODO: change nameText to nth child note to check names on card.
-            const nameText = card.textContent.toLowerCase();
-            console.log(nameText);
+            const $nameText = $("div.card-info-container:nth-child(1)").textContent.toLowerCase();
+            console.log($nameText);
             if (nameText.indexOf(searchTerm) != -1) {
                 card.style.display = 'block';
             } else {
