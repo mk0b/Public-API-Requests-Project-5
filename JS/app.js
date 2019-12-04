@@ -180,7 +180,26 @@ const eventListeners = () => {
     //TODO: Add event listener for next and back buttons user foreach and use the special next and back for each methods?
     //Adding Event Listeners for each modal button section on each card.
     //TODO: hide prev when you get to the front of the cards hide next when you get to the end of the cards. or just disable and make it look different.
-    modalBtnSection.forEach(buttons => {
+
+    for (let q = 0; q < modalBtnSection.length; q++) {
+        modalBtnSection[q].addEventListener('click', (event) => {
+            const clicked = event.target.textContent.toLowerCase();
+            const clickedModal = event.target.parentNode.parentNode;
+            let modalIndexNum = modalsArray.indexOf(clickedModal);
+            console.log('Modal index num: ' + modalIndexNum);
+            console.log('Index num of current modal: ' + modalsArray.indexOf(clickedModal));
+            if (clicked === 'next') {
+                //create a variable that equals the index number of currentmodal that ++ if it's clicked
+                modalIndexNum++;
+                console.log(modalIndexNum);
+                //put that variable in as the index value
+                modalsArray[modalIndexNum].style.display = 'block';
+            } else if (clicked === 'prev') {
+                //do reverse of above
+            }
+        });
+    }
+    /*     modalBtnSection.forEach(buttons => {
         buttons.addEventListener('click', (event) => {
             const clicked = event.target.textContent.toLowerCase();
             if (clicked === 'next' ) {  
@@ -190,7 +209,7 @@ const eventListeners = () => {
             console.log('Prev was clicked.');
            }
         });
-    });
+    }); */
 };
 
 
