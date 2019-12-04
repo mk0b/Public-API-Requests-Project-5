@@ -152,21 +152,22 @@ const eventListeners = () => {
         });
     }
 
-    //keyup event for search bar
+    //keyup event for search bar filtering
     searchInput.addEventListener('keyup', (event) => {
         const searchTerm = event.target.value.toLowerCase();
-        console.log(searchTerm);
 
+        //looping through and checking what is typed into the search input against the card names. 
+        //if the letters are contained in a name element show the card if not hide the card.
         for (let j = 0; j < cardsArray.length; j++) {
             const nameText = nameArray[j].textContent.toLowerCase();
-            console.log(nameText);
             if (nameText.indexOf(searchTerm) != -1) {
                 cardsArray[j].style.display = 'block';
             } else {
                 cardsArray[j].style.display = 'none';
             }
         }
-        console.log(cardsArray.every(card => card.getAttribute("style") === 'display: none;'));
+
+        //adding a no results message if search field is not blank and if no cards are showing.
         if (cardsArray.every(card => card.getAttribute("style") === 'display: none;')) {
             noResultsDiv.style.display = 'block';
         } else if (searchTerm === '') {
