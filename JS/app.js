@@ -134,6 +134,7 @@ const eventListeners = () => {
     const modalCloseBtnArray = grabNodeConvertToArray('#modal-close-btn');
     const nameArray = grabNodeConvertToArray('#name');
     const searchInput = document.querySelector('#search-input');
+    const noResultsDiv = grabNappend('#gallery', 'div', '<span>No results found.</span>');
     
 
     //dynamically adding event listeners to each card. When a card is clicked show matching event listener.
@@ -155,18 +156,21 @@ const eventListeners = () => {
         const searchTerm = event.target.value.toLowerCase();
         console.log(searchTerm);
 
-        cardsArray.forEach(card => {
-            //TODO: change nameText to nth child note to check names on card.
-            nameArray.forEach(name => {
-                const nameText = name.textContent.toLowerCase();
-                console.log(nameText);
-                if (nameText.indexOf(searchTerm) != -1) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
+        for (let j = 0; j < cardsArray.length; j++) {
+            const nameText = nameArray[j].textContent.toLowerCase();
+            console.log(nameText);
+            if (nameText.indexOf(searchTerm) != -1) {
+                cardsArray[j].style.display = 'block';
+            } else {
+                cardsArray[j].style.display = 'none';
+            }
+        }
+        console.log(cardsArray.every(card => card.getAttribute("style") === 'display: none;'));
+        if (cardsArray.every(card => card.getAttribute("style") === 'display: none;')) {
+            noResultsDiv.style.display = 'block';
+        } else {
+            noResultsDiv.style.display = 'none';
+        }
     });
 
     //TODO: Add event listener for next and back buttons user foreach and use the special next and back for each methods?
