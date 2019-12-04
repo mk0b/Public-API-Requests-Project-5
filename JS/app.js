@@ -141,7 +141,9 @@ const eventListeners = () => {
     //grabbing the search input
     const searchInput = document.querySelector('#search-input');
     //creating and appending no results message with helper function
-    const noResultsDiv = grabNappend('#gallery', 'div', '<span class="no-results"><strong>No results found.</strong></span>').style.display = 'none';
+    const noResultsDiv = grabNappend('#gallery', 'div', '<span class="no-results"><strong>No results found.</strong></span>');
+    //hiding no results message initially
+    noResultsDiv.style.display = 'none';
     //setting the prev button disabled and class on first card modal load.
     modalPrevBtnArray[0].disabled = 'true';
     modalPrevBtnArray[0].className = 'disabled-btn'
@@ -163,6 +165,7 @@ const eventListeners = () => {
     //keyup event for search bar filtering
     searchInput.addEventListener('keyup', (event) => {
         const searchTerm = event.target.value.toLowerCase();
+        const cardsDisplayTrueOrFalse = cardsArray.every(card => card.getAttribute("style") === 'display: none;');
 
         //looping through and checking what is typed into the search input against the card names. 
         //if the letters are contained in a name element show the card if not hide the card.
@@ -176,12 +179,8 @@ const eventListeners = () => {
         }
 
         //adding a no results message if search field is not blank and if no cards are showing.
-        if (cardsArray.every(card => card.getAttribute("style") === 'display: none;')) {
+        if (cardsDisplayTrueOrFalse) {
             noResultsDiv.style.display = 'block';
-        } else if (searchTerm === '') {
-            noResultsDiv.style.display = 'none';
-        } else {
-            noResultsDiv.style.display = 'none';
         }
     });
 
