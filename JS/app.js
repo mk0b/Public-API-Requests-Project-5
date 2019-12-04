@@ -2,10 +2,6 @@
 Treehouse Project 5 - Public API Requests - by TAP Student Megan Katherine O'Brien.
 */
 
-//TODO: Test, test test!
-//TODO: Refactor & clean up comments & tests.
-//TODO: Fill out read.me
-
 /*
     Global Variables
 */
@@ -125,9 +121,14 @@ const eventListeners = () => {
     //hiding no results message initially
     noResultsDiv.style.display = 'none';
     spanNoResults.style.display = 'none';
-    //setting the prev button disabled and class on first card modal load.
+    //using this as the index to get the button to disable on the correct modal
+    const modalArrayLengthMinusOne = modalsArray.length - 1;
+    //setting the prev and next button disabled and class on first card modal load.
     modalPrevBtnArray[0].disabled = 'true';
-    modalPrevBtnArray[0].className = 'disabled-btn'
+    modalPrevBtnArray[0].className = 'disabled-btn';
+    modalNextBtnArray[modalArrayLengthMinusOne].disabled = 'true';
+    modalNextBtnArray[modalArrayLengthMinusOne].className = 'disabled-btn';
+    
     
     //dynamically adding event listeners to each card. When a card is clicked show matching event listener.
     for (let i = 0; i < cardsArray.length; i++) {
@@ -170,33 +171,34 @@ const eventListeners = () => {
     });
 
     //for loop that adds event listeners to the nex and prev buttons in the modals.
-    //if it is the beginning or end of the array disable prev or next button and assing it a disabled-btn class.
     for (let q = 0; q < modalBtnSection.length; q++) {
         modalBtnSection[q].addEventListener('click', (event) => {
             const clicked = event.target.textContent.toLowerCase();
             const clickedModal = event.target.parentNode.parentNode;
             let modalIndexNum = modalsArray.indexOf(clickedModal);
-            const modalArrayLengthMinusOne = modalsArray.length - 1;
             
             if (clicked === 'next') {
                 //create a variable that equals the index number of currentmodal that ++ if it's clicked
                 modalIndexNum++;
                 //put that variable in as the index value
-                if (modalIndexNum === modalsArray.length) {
-                    modalNextBtnArray[modalArrayLengthMinusOne].disabled = 'true';
-                    modalNextBtnArray[modalArrayLengthMinusOne].className = 'disabled-btn'
-                } else {
-                    modalsArray[modalIndexNum].style.display = 'block';
-                    clickedModal.style.display = 'none';
-                }
+                modalsArray[modalIndexNum].style.display = 'block';
+                clickedModal.style.display = 'none';
             } else if (clicked === 'prev') {
                 //do reverse of above
                 modalIndexNum--;
-                    modalsArray[modalIndexNum].style.display = 'block';
-                    clickedModal.style.display = 'none';
+                modalsArray[modalIndexNum].style.display = 'block';
+                clickedModal.style.display = 'none';
             }
         });
     }
+
+    //Event Listener for clicking "oustside" of the modal will also close it
+    modalsArray.forEach(modal => {
+        modal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    });
+
 };
 
 
