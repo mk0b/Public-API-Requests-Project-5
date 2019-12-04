@@ -12,6 +12,7 @@ Treehouse Project 5 - Public API Requests - by TAP Student Megan Katherine O'Bri
 //TODO: Refactor & clean up comments & tests.
 //TODO: Fill out read.me
 //TODO: Go for exceeds.
+//TODO: Add css styling for "No Results" div. class="no-results"
 
 /*
     Global Variables
@@ -134,7 +135,7 @@ const eventListeners = () => {
     const modalCloseBtnArray = grabNodeConvertToArray('#modal-close-btn');
     const nameArray = grabNodeConvertToArray('#name');
     const searchInput = document.querySelector('#search-input');
-    const noResultsDiv = grabNappend('#gallery', 'div', '<span>No results found.</span>');
+    const noResultsDiv = grabNappend('#gallery', 'div', '<span class="no-results"><strong>No results found.</strong></span>');
     
 
     //dynamically adding event listeners to each card. When a card is clicked show matching event listener.
@@ -168,6 +169,8 @@ const eventListeners = () => {
         console.log(cardsArray.every(card => card.getAttribute("style") === 'display: none;'));
         if (cardsArray.every(card => card.getAttribute("style") === 'display: none;')) {
             noResultsDiv.style.display = 'block';
+        } else if (searchTerm === '') {
+            noResultsDiv.style.display = 'none';
         } else {
             noResultsDiv.style.display = 'none';
         }
