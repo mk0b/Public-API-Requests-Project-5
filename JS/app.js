@@ -115,19 +115,18 @@ const eventListeners = () => {
     //grabbing the search input
     const searchInput = document.querySelector('#search-input');
     //creating and appending no results message with helper function
-    const noResultsDiv = grabNappend('#gallery', 'div', '<span class="no-results">No results found.</span>');
-    const spanNoResults = document.querySelector('span.no-results');
+    const noResultsHTML = 'No results found.'; 
+    const noResultsDiv = grabNappend('#gallery', 'div', noResultsHTML);
     //hiding no results message initially
+    noResultsDiv.className = 'no-results';
     noResultsDiv.style.display = 'none';
-    spanNoResults.style.display = 'none';
     //using this as the index to get the button to disable on the correct modal
     const modalArrayLengthMinusOne = modalsArray.length - 1;
     //setting the prev and next button disabled and class on first card modal load.
     modalPrevBtnArray[0].disabled = 'true';
     modalPrevBtnArray[0].className = 'disabled-btn';
     modalNextBtnArray[modalArrayLengthMinusOne].disabled = 'true';
-    modalNextBtnArray[modalArrayLengthMinusOne].className = 'disabled-btn';
-    
+    modalNextBtnArray[modalArrayLengthMinusOne].className = 'disabled-btn'; 
     
     //dynamically adding event listeners to each card. When a card is clicked show matching event listener.
     for (let i = 0; i < cardsArray.length; i++) {
@@ -162,10 +161,10 @@ const eventListeners = () => {
         //adding a no results message if search field is not blank and if no cards are showing.
         if (cardsDisplayTrueOrFalse) {
             noResultsDiv.style.display = 'block';
-            spanNoResults.style.display = 'block';
         } else if (!cardsDisplayTrueOrFalse) {
             noResultsDiv.style.display = 'none';
-            spanNoResults.style.display = 'none';
+        } else {
+            noResultsDiv.style.display = 'none';
         }
     });
 
