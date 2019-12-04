@@ -197,14 +197,19 @@ const eventListeners = () => {
             console.log('Next button index num: ' + nextBtnIndexNum);
             console.log('Modal index num: ' + modalIndexNum);
             console.log('Index num of current modal: ' + modalsArray.indexOf(clickedModal));
+            const modalArrayLengthMinusOne = modalsArray.length - 1;
             
             if (clicked === 'next') {
                 //create a variable that equals the index number of currentmodal that ++ if it's clicked
                 modalIndexNum++;
                 console.log(modalIndexNum);
                 //put that variable in as the index value
-                modalsArray[modalIndexNum].style.display = 'block';
-                clickedModal.style.display = 'none';
+                if (modalIndexNum === modalsArray.length - 1) {
+                    modalNextBtnArray[modalArrayLengthMinusOne].disabled = 'true';
+                } else {
+                    modalsArray[modalIndexNum].style.display = 'block';
+                    clickedModal.style.display = 'none';
+                }
             } else if (clicked === 'prev') {
                 //do reverse of above
                 modalIndexNum--;
@@ -212,7 +217,7 @@ const eventListeners = () => {
                 //put that variable in as the index value
                 if (modalIndexNum <= 0) {
                     modalPrevBtnArray[0].disabled = 'true';
-                } else {
+                }  else {
                     modalsArray[modalIndexNum].style.display = 'block';
                     clickedModal.style.display = 'none';
                 }
