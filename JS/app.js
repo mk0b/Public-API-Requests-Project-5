@@ -135,7 +135,7 @@ const eventListeners = () => {
     const modalCloseBtnArray = grabNodeConvertToArray('#modal-close-btn');
     const nameArray = grabNodeConvertToArray('#name');
     const searchInput = document.querySelector('#search-input');
-    const noResultsDiv = grabNappend('#gallery', 'div', '<span class="no-results"><strong>No results found.</strong></span>');
+    const noResultsDiv = grabNappend('#gallery', 'div', '<span class="no-results"><strong>No results found.</strong></span>').style.display = 'none';
     const modalBtnSection = grabNodeConvertToArray('div.modal-btn-container');
 
     //dynamically adding event listeners to each card. When a card is clicked show matching event listener.
@@ -182,9 +182,9 @@ const eventListeners = () => {
     modalBtnSection.forEach(buttons => {
         buttons.addEventListener('click', (event) => {
             const clicked = event.target.textContent.toLowerCase();
-            if (clicked === 'next' ) {
-                //do a thing.
+            if (clicked === 'next' ) {  
                 console.log('Next was clicked.');
+                return;
            } else if (clicked === 'prev') {
             console.log('Prev was clicked.');
            }
