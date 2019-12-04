@@ -5,20 +5,6 @@ Treehouse Project 5 - Public API Requests - by TAP Student Megan Katherine O'Bri
 //TODO: Test, test test!
 //TODO: Refactor & clean up comments & tests.
 //TODO: Fill out read.me
-//TODO: Add css styling for "No Results" div. class="no-results"
-//TODO: Create class for disabled button 'disabled-btn'
-
-//TODO:
-/*
-    Exceeds for Structure style and css
-        1. Add or change at least one of the following:
-            - color
-            - background color
-            - font
-            - box or text shadows
-        2. Document your style changes in your readme and projec sub notes.
-        3. Do not alter the layout or position of the important elements on the page.
-*/
 
 /*
     Global Variables
