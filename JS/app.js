@@ -2,44 +2,38 @@
 Treehouse Project 5 - Public API Requests - by TAP Student Megan Katherine O'Brien.
 */
 
-
-//TODO: Write out my plan in comments.
-//TODO: Start Coding.
-//TODO: Figure out how to code modals.
-//TODO: Remember that the html for what I need is in comments in the index.html file.
-
 //TODO: Test, test test!
 //TODO: Refactor & clean up comments & tests.
 //TODO: Fill out read.me
-//TODO: Go for exceeds.
 //TODO: Add css styling for "No Results" div. class="no-results"
 //TODO: Create class for disabled button 'disabled-btn'
+
+//TODO:
+/*
+    Exceeds for Structure style and css
+        1. Add or change at least one of the following:
+            - color
+            - background color
+            - font
+            - box or text shadows
+        2. Document your style changes in your readme and projec sub notes.
+        3. Do not alter the layout or position of the important elements on the page.
+*/
 
 /*
     Global Variables
 */
 
-//get 12 random users in one request from the randomUser API
-/*
-    Info I need to capture:
-        1. Image
-        2. First and Last Name
-        3. Email
-        4. City/Location
-        5. User nationality of English
-        6. Cell number
-        7. Detailed address including street name and number, state or country, and post code.
-        8. Birthday
-*/
+//my api call - specific data - 12 results - us for search
 const RandomUsersCall = 'https://randomuser.me/api/?results=12&inc=name,location,email,dob,cell,picture&nat=us';
 
-
-
-/*
+/* ---------------------------
     Helper Functions
-*/
+--------------------------- */
 
 //Funtion for requesting data with the Fetch API, logging the response, converting to json, and catching errors.
+
+//TODO: conver to async function?
 const requestData = (url) => {
     return fetch(url)
         .then(response => response.json())
@@ -63,9 +57,9 @@ const grabNodeConvertToArray = (node) => {
     return array;
 };
 
-/*
+/* ---------------------------
     Regular Functions
-*/
+--------------------------- */
 
 //Create Searchbox
 const createSearch = () => {
@@ -98,7 +92,6 @@ const createGallery = (data) => {
 
 //Create modals
 const createModals = (data) => {
-    //creating modals
     data.forEach(person => {
         const modalHTML = `
             <div class="modal">
@@ -231,24 +224,10 @@ const createPage = (data) => {
     eventListeners();
 };
 
-
-//TODO:
-/*
-    Exceeds for Structure style and css
-        1. Add or change at least one of the following:
-            - color
-            - background color
-            - font
-            - box or text shadows
-        2. Document your style changes in your readme and projec sub notes.
-        3. Do not alter the layout or position of the important elements on the page.
-*/
-
-
-/*
+/* ---------------------------
     Call functions.
-*/
+--------------------------- */
 
-//Fetching the data from the RandomUser API
+//calls my helper requestData to fetch from the api then calls my master createPage function to kick off everything else.
 requestData(RandomUsersCall)
     .then(data => createPage(data.results));
