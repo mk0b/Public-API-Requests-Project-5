@@ -194,6 +194,7 @@ const eventListeners = () => {
                 console.log(modalIndexNum);
                 //put that variable in as the index value
                 modalsArray[modalIndexNum].style.display = 'block';
+                clickedModal.style.display = 'none';
             } else if (clicked === 'prev') {
                 //do reverse of above
             }
