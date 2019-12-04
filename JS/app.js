@@ -13,6 +13,7 @@ Treehouse Project 5 - Public API Requests - by TAP Student Megan Katherine O'Bri
 //TODO: Fill out read.me
 //TODO: Go for exceeds.
 //TODO: Add css styling for "No Results" div. class="no-results"
+//TODO: Create class for disabled button 'disabled-btn'
 
 /*
     Global Variables
@@ -129,19 +130,22 @@ const hidingModals = () => {
 
 //Event Listeners to open, close, and click next on modals.
 const eventListeners = () => {
-    //creating arrays
+    //creating arrays needed with helper function
     const cardsArray = grabNodeConvertToArray('div.card');
     const modalsArray = grabNodeConvertToArray('div.modal-container');
     const modalCloseBtnArray = grabNodeConvertToArray('#modal-close-btn');
     const nameArray = grabNodeConvertToArray('#name');
-    const searchInput = document.querySelector('#search-input');
-    const noResultsDiv = grabNappend('#gallery', 'div', '<span class="no-results"><strong>No results found.</strong></span>').style.display = 'none';
     const modalBtnSection = grabNodeConvertToArray('div.modal-btn-container');
     const modalPrevBtnArray = grabNodeConvertToArray('#modal-prev'); 
     const modalNextBtnArray = grabNodeConvertToArray('#modal-next');
-    console.log(modalPrevBtnArray);
-    console.log(modalNextBtnArray);
-
+    //grabbing the search input
+    const searchInput = document.querySelector('#search-input');
+    //creating and appending no results message with helper function
+    const noResultsDiv = grabNappend('#gallery', 'div', '<span class="no-results"><strong>No results found.</strong></span>').style.display = 'none';
+    //setting the prev button disabled and class on first card modal load.
+    modalPrevBtnArray[0].disabled = 'true';
+    modalPrevBtnArray[0].className = 'disabled-btn'
+    
     //dynamically adding event listeners to each card. When a card is clicked show matching event listener.
     for (let i = 0; i < cardsArray.length; i++) {
         cardsArray[i].addEventListener('click', () => {
@@ -181,31 +185,22 @@ const eventListeners = () => {
         }
     });
 
-    //TODO: Add event listener for next and back buttons user foreach and use the special next and back for each methods?
-    //Adding Event Listeners for each modal button section on each card.
-    //TODO: hide prev when you get to the front of the cards hide next when you get to the end of the cards. or just disable and make it look different.
-
+    //for loop that adds event listeners to the nex and prev buttons in the modals.
+    //if it is the beginning or end of the array disable prev or next button and assing it a disabled-btn class.
     for (let q = 0; q < modalBtnSection.length; q++) {
         modalBtnSection[q].addEventListener('click', (event) => {
             const clicked = event.target.textContent.toLowerCase();
             const clickedModal = event.target.parentNode.parentNode;
             let modalIndexNum = modalsArray.indexOf(clickedModal);
-            const clickedButton = event.target;
-            let prevBtnIndexNum = modalPrevBtnArray.indexOf(clickedButton);
-            console.log('Prev button index num: ' + prevBtnIndexNum);
-            let nextBtnIndexNum = modalNextBtnArray.indexOf(clickedButton);
-            console.log('Next button index num: ' + nextBtnIndexNum);
-            console.log('Modal index num: ' + modalIndexNum);
-            console.log('Index num of current modal: ' + modalsArray.indexOf(clickedModal));
             const modalArrayLengthMinusOne = modalsArray.length - 1;
             
             if (clicked === 'next') {
                 //create a variable that equals the index number of currentmodal that ++ if it's clicked
                 modalIndexNum++;
-                console.log(modalIndexNum);
                 //put that variable in as the index value
-                if (modalIndexNum === modalsArray.length - 1) {
+                if (modalIndexNum === modalsArray.length) {
                     modalNextBtnArray[modalArrayLengthMinusOne].disabled = 'true';
+                    modalNextBtnArray[modalArrayLengthMinusOne].className = 'disabled-btn'
                 } else {
                     modalsArray[modalIndexNum].style.display = 'block';
                     clickedModal.style.display = 'none';
@@ -213,38 +208,11 @@ const eventListeners = () => {
             } else if (clicked === 'prev') {
                 //do reverse of above
                 modalIndexNum--;
-                console.log(modalIndexNum);
-                //put that variable in as the index value
-                if (modalIndexNum <= 0) {
-                    modalPrevBtnArray[0].disabled = 'true';
-                }  else {
                     modalsArray[modalIndexNum].style.display = 'block';
                     clickedModal.style.display = 'none';
-                }
             }
-
-/*             if (modalIndexNum < 0) {
-                modalPrevBtnArray[prevBtnIndexNum].style.display = 'none';
-            } else if (modalIndexNum >= modalsArray.length) {
-                modalNextBtnArray[nextBtnIndexNum].style.display = 'none';
-            } else {
-                modalPrevBtnArray[prevBtnIndexNum].style.display = 'block';
-                modalNextBtnArray[nextBtnIndexNum].style.display = 'block';
-            } */
-
         });
     }
-    /*     modalBtnSection.forEach(buttons => {
-        buttons.addEventListener('click', (event) => {
-            const clicked = event.target.textContent.toLowerCase();
-            if (clicked === 'next' ) {  
-                console.log('Next was clicked.');
-                return;
-           } else if (clicked === 'prev') {
-            console.log('Prev was clicked.');
-           }
-        });
-    }); */
 };
 
 
@@ -258,9 +226,8 @@ const createPage = (data) => {
     eventListeners();
 };
 
-//TODO: Exceeds - add a way to move to the next employee in the modal. There is markup and comments.
 
-
+//TODO:
 /*
     Exceeds for Structure style and css
         1. Add or change at least one of the following:
