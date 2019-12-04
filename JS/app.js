@@ -15,7 +15,6 @@ const RandomUsersCall = 'https://randomuser.me/api/?results=12&inc=name,location
 
 //Funtion for requesting data with the Fetch API, logging the response, converting to json, and catching errors.
 
-//TODO: conver to async function?
 const requestData = (url) => {
     return fetch(url)
         .then(response => response.json())
