@@ -163,7 +163,9 @@ const eventListeners = () => {
             noResultsDiv.style.display = 'block';
         } else if (!cardsDisplayTrueOrFalse) {
             noResultsDiv.style.display = 'none';
-        } else {
+        } else if (searchTerm === '') {
+            noResultsDiv.style.display = 'none';
+        }  else {
             noResultsDiv.style.display = 'none';
         }
     });
