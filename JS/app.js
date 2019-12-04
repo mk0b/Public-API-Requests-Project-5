@@ -136,7 +136,7 @@ const eventListeners = () => {
     const nameArray = grabNodeConvertToArray('#name');
     const searchInput = document.querySelector('#search-input');
     const noResultsDiv = grabNappend('#gallery', 'div', '<span class="no-results"><strong>No results found.</strong></span>');
-    
+    const modalBtnSection = grabNodeConvertToArray('div.modal-btn-container');
 
     //dynamically adding event listeners to each card. When a card is clicked show matching event listener.
     for (let i = 0; i < cardsArray.length; i++) {
@@ -178,6 +178,18 @@ const eventListeners = () => {
     });
 
     //TODO: Add event listener for next and back buttons user foreach and use the special next and back for each methods?
+    //Adding Event Listeners for each modal button section on each card.
+    modalBtnSection.forEach(buttons => {
+        buttons.addEventListener('click', (event) => {
+            const clicked = event.target.textContent.toLowerCase();
+            if (clicked === 'next' ) {
+                //do a thing.
+                console.log('Next was clicked.');
+           } else if (clicked === 'prev') {
+            console.log('Prev was clicked.');
+           }
+        });
+    });
 };
 
 
@@ -191,9 +203,6 @@ const createPage = (data) => {
     eventListeners();
 };
 
-
-//TODO: Exceeds - Add a way to filter the directory by name. 
-//TODO: Exceeds - Your search feature should filters results that are already on the page. So don't request new info from the API for your search.
 //TODO: Exceeds - add a way to move to the next employee in the modal. There is markup and comments.
 
 
