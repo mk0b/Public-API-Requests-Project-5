@@ -137,6 +137,10 @@ const eventListeners = () => {
     const searchInput = document.querySelector('#search-input');
     const noResultsDiv = grabNappend('#gallery', 'div', '<span class="no-results"><strong>No results found.</strong></span>').style.display = 'none';
     const modalBtnSection = grabNodeConvertToArray('div.modal-btn-container');
+    const modalPrevBtnArray = grabNodeConvertToArray('#modal-prev'); 
+    const modalNextBtnArray = grabNodeConvertToArray('#modal-next');
+    console.log(modalPrevBtnArray);
+    console.log(modalNextBtnArray);
 
     //dynamically adding event listeners to each card. When a card is clicked show matching event listener.
     for (let i = 0; i < cardsArray.length; i++) {
@@ -186,8 +190,14 @@ const eventListeners = () => {
             const clicked = event.target.textContent.toLowerCase();
             const clickedModal = event.target.parentNode.parentNode;
             let modalIndexNum = modalsArray.indexOf(clickedModal);
+            const clickedButton = event.target;
+            let prevBtnIndexNum = modalPrevBtnArray.indexOf(clickedButton);
+            console.log('Prev button index num: ' + prevBtnIndexNum);
+            let nextBtnIndexNum = modalNextBtnArray.indexOf(clickedButton);
+            console.log('Next button index num: ' + nextBtnIndexNum);
             console.log('Modal index num: ' + modalIndexNum);
             console.log('Index num of current modal: ' + modalsArray.indexOf(clickedModal));
+            
             if (clicked === 'next') {
                 //create a variable that equals the index number of currentmodal that ++ if it's clicked
                 modalIndexNum++;
@@ -197,7 +207,26 @@ const eventListeners = () => {
                 clickedModal.style.display = 'none';
             } else if (clicked === 'prev') {
                 //do reverse of above
+                modalIndexNum--;
+                console.log(modalIndexNum);
+                //put that variable in as the index value
+                if (modalIndexNum <= 0) {
+                    modalPrevBtnArray[0].disabled = 'true';
+                } else {
+                    modalsArray[modalIndexNum].style.display = 'block';
+                    clickedModal.style.display = 'none';
+                }
             }
+
+/*             if (modalIndexNum < 0) {
+                modalPrevBtnArray[prevBtnIndexNum].style.display = 'none';
+            } else if (modalIndexNum >= modalsArray.length) {
+                modalNextBtnArray[nextBtnIndexNum].style.display = 'none';
+            } else {
+                modalPrevBtnArray[prevBtnIndexNum].style.display = 'block';
+                modalNextBtnArray[nextBtnIndexNum].style.display = 'block';
+            } */
+
         });
     }
     /*     modalBtnSection.forEach(buttons => {
