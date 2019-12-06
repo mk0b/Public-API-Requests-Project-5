@@ -194,8 +194,11 @@ const eventListeners = () => {
 
     //Event Listener for clicking "oustside" of the modal will also close it
     modalsArray.forEach(modal => {
-        modal.addEventListener('click', () => {
+        modal.addEventListener('click', (event) => {
+            const clicked = event.target;
+            if (clicked.getAttribute('class') === 'modal-container') {
             modal.style.display = 'none';
+            }
         });
     });
 
